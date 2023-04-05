@@ -10,6 +10,10 @@
         input {
             display: block;
         }
+
+        span {
+            display: block;
+        }
     </style>
 </head>
 
@@ -23,6 +27,7 @@
         <input id="last-name" />
         Age:
         <input id="age" />
+        <span id="age-error" style="color:red"></span>
         Mobile Number:
         <input id="mobile-number" />
         Phone Number: (optional)
@@ -48,36 +53,41 @@
         let mobileNumberValue = ''
         let phoneNumberValue = ''
 
+        const ageErrorSpan = document.querySelector('#age-error')
+
+        form.addEventListener('input', () => {
+            validateForm()
+        })
+
 
 
         nameInput.addEventListener('input', (event) => {
             nameValue = event.target.value
-            validateForm()
         })
 
         middleNameInput.addEventListener('input', (event) => {
             middleNameValue = event.target.value
-            validateForm()
         })
 
         lastNameInput.addEventListener('input', (event) => {
             lastNameValue = event.target.value
-            validateForm()
         })
 
         ageInput.addEventListener('input', (event) => {
             ageValue = event.target.value
-            validateForm()
+            if (isAgeValid()) {
+                ageErrorSpan.textContent = ''
+            } else {
+                ageErrorSpan.textContent = 'Please enter number only greater than 18'
+            }
         })
 
         mobileNumberInput.addEventListener('input', (event) => {
             mobileNumberValue = event.target.value
-            validateForm()
         })
 
         phoneNumberInput.addEventListener('input', (event) => {
             phoneNumberValue = event.target.value
-            validateForm()
         })
 
         function isPhoneNumberValid() {
@@ -88,9 +98,17 @@
             }
         }
 
-        function validateForm() {
+        function isAgeValid() {
             const ageAsNumber = Number(ageValue)
-            if (nameValue.trim() && lastNameValue.trim() && ageValue.trim() && mobileNumberValue.trim() && !isNaN(ageAsNumber) && ageAsNumber >= 18 && isPhoneNumberValid()) {
+            if (ageValue.trim() && !isNaN(ageAsNumber) && ageAsNumber >= 18) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        function validateForm() {
+            if (nameValue.trim() && lastNameValue.trim() && mobileNumberValue.trim() && isAgeValid() && isPhoneNumberValid()) {
                 button.disabled = false;
             } else {
                 button.disabled = true;
@@ -105,5 +123,3 @@
 
     </script>
 </body>
-
-</html>
