@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,21 +14,24 @@
 </head>
 
 <body>
-    Name:
-    <input id="name" autofocus />
-    Middle Name: (optional)
-    <input id="middle-name" />
-    Last Name:
-    <input id="last-name" />
-    Age:
-    <input id="age" />
-    Mobile Number:
-    <input id="mobile-number" />
-    Phone Number: (optional)
-    <input id="phone-number" />
-    <button disabled>submit</button>
+    <form>
+        Name:
+        <input id="name" autofocus />
+        Middle Name: (optional)
+        <input id="middle-name" />
+        Last Name:
+        <input id="last-name" />
+        Age:
+        <input id="age" />
+        Mobile Number:
+        <input id="mobile-number" />
+        Phone Number: (optional)
+        <input id="phone-number" />
+        <button type="submit" disabled>submit</button>
+    </form>
 
     <script>
+        const form = document.querySelector('form')
         const button = document.querySelector('button')
 
         const nameInput = document.querySelector('#name')
@@ -78,14 +80,27 @@
             validateForm()
         })
 
+        function isPhoneNumberValid() {
+            if (!phoneNumberValue.trim() || /^\+?[0-9]{6,}$/.test(phoneNumberValue)) {
+                return true
+            } else {
+                return false
+            }
+        }
+
         function validateForm() {
-            if (nameValue.trim() && lastNameValue.trim() && ageValue.trim() && mobileNumberValue.trim()) {
+            const ageAsNumber = Number(ageValue)
+            if (nameValue.trim() && lastNameValue.trim() && ageValue.trim() && mobileNumberValue.trim() && !isNaN(ageAsNumber) && ageAsNumber >= 18 && isPhoneNumberValid()) {
                 button.disabled = false;
             } else {
                 button.disabled = true;
 
             }
         }
+
+        form.addEventListener('submit', () => {
+            alert('form submitted')
+        })
 
 
     </script>
