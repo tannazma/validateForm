@@ -18,77 +18,37 @@
 </head>
 
 <body>
-    <form>
+    <form @submit="sendHouseToServer">
         Name:
-        <input id="name" autofocus />
+        <input @input="e => state.nameValue = e.target.value" autofocus />
         Middle Name: (optional)
-        <input id="middle-name" />
+        <input />
         Last Name:
-        <input id="last-name" />
+        <input />
         Age:
-        <input id="age" />
-        <span id="age-error" style="color:red"></span>
+        <input />
+        <span style="color:red">{{ isAgeValid()? '' : 'Please enter number only greater than 18'
+            }}</span>
         Mobile Number:
-        <input id="mobile-number" />
+        <input />
         Phone Number: (optional)
-        <input id="phone-number" />
-        <button type="submit" disabled>submit</button>
+        <input />
+        <button type="submit" :disabled="!isFormValid()">submit</button>
     </form>
 
     <script>
-        const form = document.querySelector('form')
-        const button = document.querySelector('button')
 
-        const nameInput = document.querySelector('#name')
-        const middleNameInput = document.querySelector('#middle-name')
-        const lastNameInput = document.querySelector('#last-name')
-        const ageInput = document.querySelector('#age')
-        const mobileNumberInput = document.querySelector('#mobile-number')
-        const phoneNumberInput = document.querySelector('#phone-number')
 
-        let nameValue = ''
-        let middleNameValue = ''
-        let lastNameValue = ''
-        let ageValue = ''
-        let mobileNumberValue = ''
-        let phoneNumberValue = ''
-
-        const ageErrorSpan = document.querySelector('#age-error')
-
-        form.addEventListener('input', () => {
-            validateForm()
+        const state = reactive({
+            nameValue: '',
+            middleNameValue: '',
+            lastNameValue: '',
+            ageValue: '',
+            mobileNumberValue: '',
+            phoneNumberValue: '',
         })
 
 
-
-        nameInput.addEventListener('input', (event) => {
-            nameValue = event.target.value
-        })
-
-        middleNameInput.addEventListener('input', (event) => {
-            middleNameValue = event.target.value
-        })
-
-        lastNameInput.addEventListener('input', (event) => {
-            lastNameValue = event.target.value
-        })
-
-        ageInput.addEventListener('input', (event) => {
-            ageValue = event.target.value
-            if (isAgeValid()) {
-                ageErrorSpan.textContent = ''
-            } else {
-                ageErrorSpan.textContent = 'Please enter number only greater than 18'
-            }
-        })
-
-        mobileNumberInput.addEventListener('input', (event) => {
-            mobileNumberValue = event.target.value
-        })
-
-        phoneNumberInput.addEventListener('input', (event) => {
-            phoneNumberValue = event.target.value
-        })
 
         function isPhoneNumberValid() {
             if (!phoneNumberValue.trim() || /^\+?[0-9]{6,}$/.test(phoneNumberValue)) {
@@ -107,19 +67,19 @@
             }
         }
 
-        function validateForm() {
-            if (nameValue.trim() && lastNameValue.trim() && mobileNumberValue.trim() && isAgeValid() && isPhoneNumberValid()) {
-                button.disabled = false;
-            } else {
-                button.disabled = true;
 
+        function isFormValid() {
+            if (nameValue.trim() && lastNameValue.trim() && mobileNumberValue.trim() && isAgeValid() && isPhoneNumberValid()) {
+                return true;
+            } else {
+                return false
             }
         }
 
-        form.addEventListener('submit', () => {
-            alert('form submitted')
-        })
+
 
 
     </script>
 </body>
+
+</html>
