@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    Name:
+    <input id="name" autofocus />
+    Middle Name: (optional)
+    <input id="middle-name" />
+    Last Name:
+    <input id="last-name" />
+    Age:
+    <input id="age" />
+    Mobile Number:
+    <input id="mobile-number" />
+    Phone Number: (optional)
+    <input id="phone-number" />
+    <button disabled>submit</button>
+
+    <script>
+        const button = document.querySelector('button')
+
+        const nameInput = document.querySelector('#name')
+        const middleNameInput = document.querySelector('#middle-name')
+        const lastNameInput = document.querySelector('#last-name')
+        const ageInput = document.querySelector('#age')
+        const mobileNumberInput = document.querySelector('#mobile-number')
+        const phoneNumberInput = document.querySelector('#phone-number')
+
+        let nameValue = ''
+        let middleNameValue = ''
+        let lastNameValue = ''
+        let ageValue = ''
+        let mobileNumberValue = ''
+        let phoneNumberValue = ''
+
+
+
+        nameInput.addEventListener('input', (event) => {
+            nameValue = event.target.value
+            validateForm()
+        })
+
+        middleNameInput.addEventListener('input', (event) => {
+            middleNameValue = event.target.value
+            validateForm()
+        })
+
+        lastNameInput.addEventListener('input', (event) => {
+            lastNameValue = event.target.value
+            validateForm()
+        })
+
+        ageInput.addEventListener('input', (event) => {
+            ageValue = event.target.value
+            validateForm()
+        })
+
+        mobileNumberInput.addEventListener('input', (event) => {
+            mobileNumberValue = event.target.value
+            validateForm()
+        })
+
+        phoneNumberInput.addEventListener('input', (event) => {
+            phoneNumberValue = event.target.value
+            validateForm()
+        })
+
+        function validateForm() {
+            if (nameValue.trim() && lastNameValue.trim() && ageValue.trim() && mobileNumberValue.trim()) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
